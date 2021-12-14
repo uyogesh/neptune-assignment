@@ -15,7 +15,7 @@ const conversionRate: {[key: string]: {[key: string]: number}} = {
 
 interface CurrencyState {
     name: string,
-    value?: string
+    value: string
 }
 
 const Converter:FC = ({}) => {
@@ -27,9 +27,9 @@ const Converter:FC = ({}) => {
         return conversed;
     }
     
-    const resetState = () => {
-        setFirstCurrency({...firstCurrency, value: ""});
-        setSecondCurrency({...secondCurrency, value: ""});
+    const setState = (firstVal:string, secondVal: string) => {
+        setFirstCurrency({...firstCurrency, value: firstVal});
+        setSecondCurrency({...secondCurrency, value: secondVal});
     }
 
     const handleOnChange = (target: string) =>(event: React.ChangeEvent<HTMLInputElement>) =>{
@@ -41,24 +41,34 @@ const Converter:FC = ({}) => {
             return;
         }
         if(!!!value){
-            resetState();
+            setState("","");
             return;
         }
 
         switch (target) {
             case firstCurrency.name:
                 const secondVal = handleConversion(value, firstCurrency.name, secondCurrency.name);
-                setSecondCurrency({...secondCurrency, value: secondVal});
-                setFirstCurrency({...firstCurrency, value: value});
+                // setSecondCurrency({...secondCurrency, value: secondVal});
+                // setFirstCurrency({...firstCurrency, value});
+                setState(value, secondVal);
                 break;
             case secondCurrency.name:
                 const firstVal = handleConversion(value, secondCurrency.name, firstCurrency.name)
-                setFirstCurrency({...firstCurrency, value: firstVal});
-                setSecondCurrency({...secondCurrency, value: value});
+                // setFirstCurrency({...firstCurrency, value: firstVal});
+                // setSecondCurrency({...secondCurrency, value});
+                setState(firstVal, value);
                 break;
             default:
                 break;
         }
+    }
+
+    const handleOnRevert = () => {
+        const secondVal = handleConversion(firstCurrency.value, secondCurrency.name, firstCurrency.name);
+        const firstCurrencyState = Object.assign({}, firstCurrency, {name: secondCurrency.name});
+        const secondCurrencyState = Object.assign({}, {name: firstCurrency.name, value: secondVal});
+        setFirstCurrency(firstCurrencyState);
+        setSecondCurrency(secondCurrencyState);
     }
 
     useEffect(() => {
@@ -72,7 +82,7 @@ const Converter:FC = ({}) => {
             <div className={styles["form-group"]}>
                 <Form label={firstCurrency.name} name={firstCurrency.name} value={firstCurrency.value} onChange={handleOnChange(firstCurrency.name)}/>
                 <div>
-                    <button type="button" aria-label="Revert" className={styles["btn-revert"]}>
+                    <button type="button" aria-label="Revert" className={styles["btn-revert"]} onClick={handleOnRevert}>
                         <GrSync color="black" size={24}/>
                     </button>
                 </div>

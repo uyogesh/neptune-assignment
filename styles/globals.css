@@ -43,3 +43,62 @@ input:focus {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(28, 75, 141, 0.6);
   outline: 0 none;
 }
+
+.no-bg {
+  background: none;
+} 
+
+.no-border {
+  border: none;
+}
+.txt-24 {
+  font-size: 24px;
+}
+.txt-blue {
+  color: #00a0e9; 
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 12px 0;
+  border: solid 1px rgba(0,0,0,0.3);
+  border-radius: 3px;
+  transition: all 0.5s;
+  background: none;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  cursor: pointer;
+}
+.btn-primary {
+  background-color: rgba(94, 109, 181, 1);
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: rgba(94, 109, 181, 0.9);
+  color: #fff;
+}
+
+.btn-secondary {
+  background-color: #fff;
+  color: #191a1f;
+}
+
+.btn-warn {
+  background-color: #ff5722;
+  color: #fff;
+}
+
+.ml-12 {
+  margin-left: 12px;
+}
+
+.mt-24 {
+  margin-top: 24px;
+}
+
